@@ -1,0 +1,18 @@
+{
+  "command": "bitcoind -datadir=/mnt/bench/.bitcoin -printtoconsole=0 -dbcache={dbcache} -stopatheight={height}",
+  "parameter-list": [
+    {
+      "name": "height",
+      "values": "1000,20000,300000"
+    },
+    {
+      "name": "dbcache",
+      "values": "100,450"
+    }
+  ],
+  "prepare": "sync && rm -Rf /mnt/bench/.bitcoin/*",
+  "cleanup": "",
+  "runs": 1,
+  "show-output": true,
+  "export-json": "dbcache_test.json"
+}

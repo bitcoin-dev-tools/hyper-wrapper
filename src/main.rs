@@ -104,7 +104,7 @@ fn build_hyperfine_command(config: &HyperfineConfig) -> Command {
 fn main() -> Result<(), Box<dyn Error>> {
     // Read config file path and commit hashes from command line
     let args: Vec<String> = std::env::args().collect();
-    if args.len() != 4 {
+    if args.len() != 5 {
         eprintln!(
             "Usage: {} <config.json> <base_commit> <head_commit> <results_dir>",
             args[0]

@@ -106,7 +106,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     let args: Vec<String> = std::env::args().collect();
     if args.len() != 4 {
         eprintln!(
-            "Usage: {} <config.json> <base_commit> <head_commit>",
+            "Usage: {} <config.json> <base_commit> <head_commit> <results_dir>",
             args[0]
         );
         std::process::exit(1);
@@ -114,6 +114,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     let base_commit = &args[2];
     let head_commit = &args[3];
+    let results_dir = &args[4];
 
     // Read and parse config file
     let config_content = fs::read_to_string(&args[1])?;
@@ -124,6 +125,8 @@ fn main() -> Result<(), Box<dyn Error>> {
         name: "commit".to_string(),
         values: format!("{},{}", base_commit, head_commit),
     });
+
+    config.export_json = Some(results_dir.to_string());
 
     // Build and execute hyperfine command
     let mut command = build_hyperfine_command(&config);

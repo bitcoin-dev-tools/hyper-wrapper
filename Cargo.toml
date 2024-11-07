@@ -1,6 +1,6 @@
 [package]
 name = "hyper-wrapper"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 description = "A JSON configuration wrapper for hyperfine benchmarking tool"
 authors = ["Will Clark <will@256k1.dev>"]

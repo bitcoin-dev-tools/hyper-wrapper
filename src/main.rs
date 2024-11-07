@@ -102,16 +102,28 @@ fn build_hyperfine_command(config: &HyperfineConfig) -> Command {
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
-    // Read config file path from command line
+    // Read config file path and commit hashes from command line
     let args: Vec<String> = std::env::args().collect();
-    if args.len() != 2 {
-        eprintln!("Usage: {} <config.json>", args[0]);
+    if args.len() != 4 {
+        eprintln!(
+            "Usage: {} <config.json> <base_commit> <head_commit>",
+            args[0]
+        );
         std::process::exit(1);
     }
 
+    let base_commit = &args[2];
+    let head_commit = &args[3];
+
     // Read and parse config file
     let config_content = fs::read_to_string(&args[1])?;
-    let config: HyperfineConfig = serde_json::from_str(&config_content)?;
+    let mut config: HyperfineConfig = serde_json::from_str(&config_content)?;
+
+    // Add commit parameter list
+    config.parameter_lists.push(ParameterList {
+        name: "commit".to_string(),
+        values: format!("{},{}", base_commit, head_commit),
+    });
 
     // Build and execute hyperfine command
     let mut command = build_hyperfine_command(&config);

@@ -17,6 +17,8 @@ struct HyperfineConfig {
     #[serde(default)]
     parameter_lists: Vec<ParameterList>,
     #[serde(default)]
+    setup: Option<String>,
+    #[serde(default)]
     prepare: Option<String>,
     #[serde(default)]
     cleanup: Option<String>,
@@ -46,6 +48,12 @@ fn build_hyperfine_command(config: &HyperfineConfig) -> Command {
         cmd.arg("--parameter-list");
         cmd.arg(&param.name);
         cmd.arg(&param.values);
+    }
+
+    // Add setup command
+    if let Some(setup) = &config.setup {
+        cmd.arg("--setup");
+        cmd.arg(setup);
     }
 
     // Add prepare command

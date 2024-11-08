@@ -31,6 +31,7 @@ cargo install --path .
     }
   ],
   "prepare": "sync && rm -Rf /mnt/bench/.bitcoin/*",
+  "conclude": "",
   "cleanup": "",
   "runs": 1,
   "show-output": true,
@@ -53,6 +54,7 @@ The JSON configuration file supports the following options:
 | `command` | string | The command to benchmark with parameter placeholders |
 | `parameter-list` | array? | List of parameters and their values for benchmarking |
 | `prepare` | string? | Command to run before each timing run |
+| `conclude` | string? | Command to run after each timing run |
 | `cleanup` | string? | Command to run after all benchmarking runs |
 | `runs` | number? | Number of runs to perform |
 | `show-output` | boolean? | Whether to show command output |

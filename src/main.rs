@@ -21,6 +21,8 @@ struct HyperfineConfig {
     #[serde(default)]
     prepare: Option<String>,
     #[serde(default)]
+    conclude: Option<String>,
+    #[serde(default)]
     cleanup: Option<String>,
     #[serde(default)]
     runs: Option<u32>,
@@ -60,6 +62,12 @@ fn build_hyperfine_command(config: &HyperfineConfig) -> Command {
     if let Some(prepare) = &config.prepare {
         cmd.arg("--prepare");
         cmd.arg(prepare);
+    }
+
+    // Add conclude command
+    if let Some(conclude) = &config.conclude {
+        cmd.arg("--conclude");
+        cmd.arg(conclude);
     }
 
     // Add cleanup command
